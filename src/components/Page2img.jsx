@@ -57,7 +57,7 @@ const Page2img = () => {
       <img
       id="page2img"
         ref={imgRef}
-        src="../images/swapnilprofilepic.jpg"
+        src="public/images/swapnilprofilepic.jpg"
         alt="Profile Picture"
         className="rounded-md w-[25vw] h-[40vw]  object-cover"
       />
