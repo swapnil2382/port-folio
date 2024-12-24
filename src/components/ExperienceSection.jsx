@@ -31,26 +31,26 @@ const ExperienceSection = () => {
             issuer: "Accenture",
             description:
                 "Project Understanding Data Cleaning & Modeling Data Visualization & Storytelling Present to the Client",
-            image: "/public/images/Accenture Certificate.pdf", // Add the path to the certificate image
+            image: "/images/Accenture Certificate.pdf", // Add the path to the certificate image
         },
         {
             title: "AWS APAC Solutions Architecture Virtual Experience Program - December 2024",
             issuer: "Amazon Web Services",
             description: "Designing a simple, scalable, hosting architecture",
-            image: "/public/images/AWS certificate.pdf",
+            image: "/images/AWS certificate.pdf",
         },
         {
             title: "Goldman Sachs Software Engineering Virtual Experience Program – December 2024",
             issuer: "Goldman Sachs",
             description: "Crack leaked password database",
-            image: "/public/images/Goladsmash Certificate.pdf",
+            image: "/images/Goladsmash Certificate.pdf",
         },
         {
             title: "Career Essentials in Generative AI by Microsoft and LinkedIn",
             issuer: "LinkedIn Learning",
             description:
                 "Top skills covered: Computer Ethics, Artificial Intelligence (AI), Generative AI",
-            image: "/public/images/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.pdf",
+            image: "/images/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.pdf",
         },
     ];
 
