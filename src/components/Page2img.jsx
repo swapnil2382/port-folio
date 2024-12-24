@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import useGsapAnimations from "./useGsapAnimations";
+import swapnilProfilePic from "./swapnilprofilepic.jpg";
 
 const Page2img = () => {
   const imgRef = useRef(null); // Ref for the image element
@@ -57,7 +58,7 @@ const Page2img = () => {
       <img
       id="page2img"
         ref={imgRef}
-        src="/images/swapnilprofilepic.jpg"
+        src={swapnilProfilePic} 
         alt="Profile Picture"
         className="rounded-md w-[25vw] h-[40vw]  object-cover"
       />

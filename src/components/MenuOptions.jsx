@@ -43,7 +43,7 @@ const MenuOptions = ({ closeMenu }) => {
       {/* CV Button for Mobile View */}
       <li className="md:hidden">
         <button className="bg-black text-white px-8 py-1.5 border-2 rounded-full flex items-center space-x-2 hover:bg-gray-800 text-sm"
-        onClick={() => window.open("/public/images/Swapnil Patil Resume final.pdf", "_blank")}>
+        onClick={() => window.open("/components/Swapnil Patil Resume final.pdf", "_blank")}>
           <i className="fa-solid fa-download"></i>
           <span> CV</span>
         </button>
