@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import MenuOptions from './MenuOptions';
+<<<<<<< HEAD
+=======
+const ResumePDF = "/port-folio/Swapnil_Resume_Final.pdf";
+
+
+>>>>>>> 160203e (Updated portfolio with new design)
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +23,7 @@ const Header = () => {
     <div id="header" className="z-[1000] p-5 flex items-center justify-end fixed top-3 left-0 right-0 bg-white bg-opacity-0 ">
       {/* Desktop buttons */}
       <div className="hidden md:flex space-x-4">
+<<<<<<< HEAD
         <button
           className="bg-black text-white px-8 py-1.5 border-2 rounded-full flex items-center space-x-2 hover:bg-gray-800 text-sm lg:text-base"
           onClick={() => window.open("/public/images/Swapnil Patil Resume final.pdf", "_blank")}
@@ -24,6 +31,16 @@ const Header = () => {
           <i className="fa-solid fa-download"></i>
           <span> CV</span>
         </button>
+=======
+      <button
+  className="bg-black text-white px-8 py-1.5 border-2 rounded-full flex items-center space-x-2 hover:bg-gray-800 text-sm lg:text-base"
+  onClick={() => window.open(ResumePDF, "_blank")}
+>
+  <i className="fa-solid fa-download"></i>
+  <span> CV</span>
+</button>
+
+>>>>>>> 160203e (Updated portfolio with new design)
       </div>
 
 
