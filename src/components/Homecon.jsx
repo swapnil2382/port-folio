@@ -2,7 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CloudDownload } from "lucide-react";
+import resumePDF from "../components/Swapnil_Resume_Final.pdf";
 import avatar from "../assets/avatar-removebg-preview.png"; 
+
 
 const Homecon = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -87,7 +89,7 @@ const Homecon = () => {
           transition={{ duration: 1.2 }}
         >
           <a
-            href="/Swapnil_Resume_Final.pdf"
+            href={resumePDF}
             target="_blank"
             className={`relative flex items-center justify-start 
           ${isHovered ? "w-48 md:w-48 px-4" : "w-12 md:w-16"} 
