@@ -1,11 +1,13 @@
+import useGsapAnimations from "../components/useGsapAnimations";
 const Footer = () => {
+  useGsapAnimations();
     return (
       <footer className="w-full bg-gray-900 text-white py-6">
         <div className="max-w-7xl mx-auto flex flex-col items-center text-center px-4">
-          {/* Name */}
+        
           <p className="text-lg font-semibold mb-2">Swapnil's Portfolio</p>
   
-          {/* Social Media Links */}
+     
           <div className="flex flex-wrap justify-center gap-4 mt-2">
             <a
               href="https://www.linkedin.com/in/swapnil-patil-1029492bb/"
@@ -41,7 +43,7 @@ const Footer = () => {
             </a>
           </div>
   
-          {/* Copyright */}
+      
           <p className="text-xs md:text-sm mt-4">
             © {new Date().getFullYear()} Swapnil Patil. All rights reserved.
           </p>

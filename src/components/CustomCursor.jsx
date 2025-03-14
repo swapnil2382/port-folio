@@ -9,10 +9,8 @@ const CustomCursor = () => {
     const moveCursor = (e) => {
       const { clientX: x, clientY: y } = e;
 
-      // Move the main cursor instantly
       gsap.to(cursorRef.current, { x, y, duration: 0 });
 
-      // Move the follower cursor with a delay
       gsap.to(followerRef.current, { x, y, duration: 0.3, ease: "power2.out" });
     };
 

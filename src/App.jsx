@@ -19,6 +19,7 @@ const App = () => {
 
       {/* Pages */}
       <div className="w-full">
+        
         <Page1 />
         <div id="page2">
           <Page2 />

@@ -4,52 +4,30 @@ import { ScrollTrigger } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const useGsapAnimations = (className, effectType = "fadeIn") => {
+const useGsapAnimations = () => {
   useEffect(() => {
-    gsap.utils.toArray(className).forEach((el) => {
-      let animation;
+    const elements = document.querySelectorAll(".gsap-animate");
 
-      switch (effectType) {
-        case "fadeIn":
-          animation = { opacity: 0, y: 50 };
-          break;
+    elements.forEach((el) => {
+      gsap.set(el, { visibility: "hidden", opacity: 0, scale: 0.5, y: 50 });
 
-        case "slideInFromLeft":
-          animation = { opacity: 0, x: -100 };
-          break;
-
-        case "fadeInSlideLeft": // Combined effect
-          animation = { opacity: 0, x: -100, y: 50 };
-          break;
-
-          case "fadeInSlideright": // Combined effect
-          animation = { opacity: 0, x: 50, y: 0 };
-          break;
-
-        default:
-          animation = { opacity: 0, y: 50 };
-      }
-
-      gsap.fromTo(
-        el,
-        animation,
-        {
-          opacity: 1,
-          x: 0,
-          y: 0,
-          duration: 3,
-          stagger: 1,
-          scrollTrigger: {
-            trigger: el,
-            start: "top 80%",
-            end: "top 20%",
-            toggleActions: "play none none reverse",
-            scrub: true,
-          },
-        }
-      );
+      gsap.to(el, {
+        opacity: 1,
+        scale: 1,
+        y: 0, 
+        visibility: "visible",
+        duration: 0.6,
+        ease: "power4.out",
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          end: "top 50%",
+          toggleActions: "play none none reset",
+        },
+      });
     });
-  }, [className, effectType]);
+  }, []);
 };
 
 export default useGsapAnimations;

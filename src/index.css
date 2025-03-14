@@ -11,3 +11,37 @@ body{
 html {
   scroll-behavior: smooth;
 }
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-wiggle {
+  animation: wiggle 2s infinite ease-in-out;
+}
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.floating-object {
+  animation: float 3s ease-in-out infinite;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+
+.cartoon-text {
+  font-family: "Fredoka One", cursive;
+  text-shadow: 3px 3px 0px #ffcc00, -3px -3px 0px #ff0066;
+}
+
+@keyframes textShadowMove {
+  0% { text-shadow: -2px 0px 2px black; }
+  50% { text-shadow: 2px 0px 2px black; }
+  100% { text-shadow: -2px 0px 2px black; }
+}
+
+.moving-text {
+  animation: textShadowMove 1s infinite linear;
+}

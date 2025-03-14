@@ -1,112 +1,187 @@
-import React, { useState } from "react";
-import useGsapAnimations from "./useGsapAnimations";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AccentureCert from "../components/Accenture Certificate.pdf";
 import AWSCert from "../components/AWS certificate.pdf";
 import LinkdinCert from "../components/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.pdf";
 import GoldmanCert from "../components/Goladsmash Certificate.pdf";
+import { FaReact, FaAws, FaJava, FaDatabase, FaUserShield } from "react-icons/fa";
+import useGsapAnimations from "../components/useGsapAnimations";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ExperienceSection = () => {
-    useGsapAnimations(".animate-on-scroll");
+    const [selectedTab, setSelectedTab] = useState("Certificates");
+    const [popupData, setPopupData] = useState(null);
+    const sectionRef = useRef(null);
 
-    const [selectedTab, setSelectedTab] = useState("Experience");
+    useEffect(() => {
+        const elements = sectionRef.current.querySelectorAll(".animate-on-scroll");
+
+        elements.forEach((el) => {
+            gsap.fromTo(
+                el,
+                { opacity: 0, y: 50, scale: 0.9 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse",
+                    },
+                }
+            );
+        });
+    }, [selectedTab]);
 
     const experiences = [
-        { title: "Full Stack Developer", period: "Rainy 2023", company: "Prodigy InfoTech", description: "Developed dynamic web applications using React, Node.js, and MongoDB." },
-        { title: "Front-End Developer Intern", period: "Winter 2023", company: "Octanet", description: "Created interactive UI components and optimized performance." },
+        { title: "Full Stack Developer", period: "Rainy 2023", company: "Prodigy InfoTech", description: "Developed web applications using React, Node.js, and MongoDB.", icon: <FaReact size={50} className="text-blue-400" /> },
+        { title: "Front-End Developer Intern", period: "Winter 2023", company: "Octanet", description: "Created interactive UI components and optimized performance.", icon: <FaReact size={50} className="text-cyan-400" /> },
     ];
 
     const certificates = [
-        { title: "Data Analysis Certification", issuer: "Accenture", description: "Data cleaning, modeling, and visualization.", image: AccentureCert },
-        { title: "AWS APAC Solutions Architecture", issuer: "AWS", description: "Designed scalable cloud-based solutions.", image: AWSCert },
-        { title: "Goldman Sachs Software Engineering", issuer: "Goldman Sachs", description: "Worked on cybersecurity challenges.", image: GoldmanCert },
-        { title: "Generative AI by Microsoft & LinkedIn", issuer: "LinkedIn", description: "Covered AI fundamentals & ethical AI.", image: LinkdinCert },
-    ];
+        {
+            title: "Data Analysis Certification",
+            issuer: "Accenture",
+            description: "Data cleaning, modeling, and visualization.",
+            pdf: AccentureCert,  // Updated to 'pdf' instead of 'image'
+            icon: <FaDatabase size={50} className="text-yellow-400" />
+        },
+        {
+            title: "AWS Solutions Architecture",
+            issuer: "AWS",
+            description: "Designed scalable cloud-based solutions.",
+            pdf: AWSCert,
+            icon: <FaAws size={50} className="text-orange-500" />
+        },
+        {
+            title: "Goldman Sachs Cybersecurity",
+            issuer: "Goldman Sachs",
+            description: "Worked on cybersecurity challenges.",
+            pdf: GoldmanCert,
+            icon: <FaUserShield size={50} className="text-red-500" />
+        },
+        {
+            title: "Generative AI by Microsoft",
+            issuer: "LinkedIn",
+            description: "Covered AI fundamentals & ethical AI.",
+            pdf: LinkdinCert,
+            icon: <FaReact size={50} className="text-purple-500" />
+        }    ];
 
     const courses = [
-        { title: "Full Stack Web Development", platform: "Udemy", description: "React, Node.js, MongoDB, and Express." },
-        { title: "Advanced Java Programming", platform: "Coursera", description: "OOP, multithreading, and data structures." },
-        { title: "Cloud Computing with AWS", platform: "AWS Academy", description: "AWS services and cloud architectures." },
+        { title: "Full Stack Web Development", platform: "Udemy", description: "React, Node.js, MongoDB, and Express.", icon: <FaReact size={50} className="text-blue-500" /> },
+        { title: "Advanced Java Programming", platform: "Coursera", description: "OOP, multithreading, and data structures.", icon: <FaJava size={50} className="text-orange-600" /> },
+        { title: "Cloud Computing with AWS", platform: "AWS Academy", description: "AWS services and cloud architectures.", icon: <FaAws size={50} className="text-yellow-500" /> },
     ];
-
+    useGsapAnimations();
     return (
-        <div className="bg-white text-black py-8 px-4 sm:px-6 md:px-10 animate-on-scroll">
-            {/* Heading */}
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-10 text-gray-800">
-                My <span className="text-yellow-500">Journey</span>
-            </h2>
-
-            {/* Main Layout */}
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6 max-w-6xl mx-auto">
-                {/* Sidebar Buttons (Top in Mobile, Left in Laptop) */}
-                <div className="flex md:flex-col gap-2 md:w-1/4">
-                    {["Experience", "Certificates", "Courses"].map((tab) => (
-                        <button
-                            key={tab}
-                            className={`py-2 sm:py-3 px-4 sm:px-6 w-full rounded-md text-sm sm:text-base font-medium shadow-md transition-all duration-300 
-                            ${selectedTab === tab 
-                                ? "bg-yellow-500 text-white transform scale-105 shadow-lg" 
-                                : "bg-gray-200 text-gray-700 hover:bg-gray-300 hover:shadow-md"}
-                            `}
-                            onClick={() => setSelectedTab(tab)}
-                        >
-                            {tab}
-                        </button>
-                    ))}
-                </div>
-
-                {/* Content Section */}
-                <div className="flex-1 bg-white p-4 sm:p-6 rounded-xl shadow-lg border border-gray-200">
-                    {/* Experience Section */}
-                    {selectedTab === "Experience" && (
-                        <div className="grid gap-4 sm:gap-6">
-                            {experiences.map((exp, index) => (
-                                <div key={index} className="p-4 sm:p-5 border-l-4 border-yellow-500 bg-gray-50 shadow-sm rounded-md">
-                                    <h3 className="text-lg sm:text-xl font-semibold">{exp.title}</h3>
-                                    <p className="text-gray-600 text-sm sm:text-base">{exp.period}</p>
-                                    <p className="text-xs sm:text-sm text-gray-500 italic">{exp.company}</p>
-                                    <p className="mt-1 sm:mt-2 text-gray-800 text-sm sm:text-base">{exp.description}</p>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Certificates Section */}
-                    {selectedTab === "Certificates" && (
-                        <div className="grid gap-4 sm:gap-6">
-                            {certificates.map((cert, index) => (
-                                <div key={index} className="p-4 sm:p-5 border-l-4 border-yellow-500 bg-gray-50 shadow-sm rounded-md">
-                                    <h3 className="text-lg sm:text-xl font-semibold">{cert.title}</h3>
-                                    <p className="text-gray-600 text-sm sm:text-base">Issued by: {cert.issuer}</p>
-                                    <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-3">{cert.description}</p>
-                                    <button
-                                        className="bg-yellow-500 text-white rounded-md py-1.5 sm:py-2 px-4 hover:bg-yellow-600 transition-all text-sm sm:text-base"
-                                        onClick={() => window.open(cert.image, '_blank')}
-                                    >
-                                        View Certificate
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Courses Section */}
-                    {selectedTab === "Courses" && (
-                        <div className="grid gap-4 sm:gap-6">
-                            {courses.length > 0 ? (
-                                courses.map((course, index) => (
-                                    <div key={index} className="p-4 sm:p-5 border-l-4 border-yellow-500 bg-gray-50 shadow-sm rounded-md">
-                                        <h3 className="text-lg sm:text-xl font-semibold">{course.title}</h3>
-                                        <p className="text-gray-600 text-sm sm:text-base">Platform: {course.platform}</p>
-                                        <p className="text-xs sm:text-sm text-gray-500">{course.description}</p>
-                                    </div>
-                                ))
-                            ) : (
-                                <p className="text-gray-600 text-center text-sm sm:text-base">No courses available.</p>
-                            )}
-                        </div>
-                    )}
-                </div>
+        <div ref={sectionRef} className="min-h-screen text-white py-12 px-6 sm:px-12">
+            {/* Tab Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 gsap-animate">
+                {["Certificates", "Experience", "Courses"].map((tab) => (
+                    <motion.button
+                        key={tab}
+                        className={`px-6 py-3 text-lg font-semibold rounded-full border-4 border-black shadow-xl transition-all duration-300 w-full sm:w-auto 
+                        ${selectedTab === tab ? "bg-yellow-400 text-black" : "bg-gray-800 text-white hover:bg-yellow-300"}`}
+                        onClick={() => setSelectedTab(tab)}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        {tab}
+                    </motion.button>
+                ))}
             </div>
+
+            <div className="flex justify-center flex-wrap gap-6 gsap-animate">
+                {selectedTab === "Experience" &&
+                    experiences.map((exp, index) => (
+                        <motion.div
+                            key={index}
+                            className="animate-on-scroll w-[280px] h-[400px] bg-gray-900 rounded-3xl p-6 border-4 border-black shadow-lg hover:scale-105 transition-all flex flex-col justify-between cursor-pointer"
+                            onClick={() => setPopupData(exp)}
+                        >
+                            {exp.icon}
+                            <div>
+                                <h3 className="text-xl font-semibold text-yellow-300">{exp.title}</h3>
+                                <p className="text-gray-400">{exp.period}</p>
+                                <p className="text-gray-500 italic">{exp.company}</p>
+                                <p className="mt-2 text-gray-300">{exp.description}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+
+                {selectedTab === "Certificates" &&
+                    certificates.map((cert, index) => (
+                        <motion.div
+                            key={index}
+                            className="animate-on-scroll w-[280px] h-[480px] bg-gray-900 rounded-3xl p-6 border-4 border-black shadow-lg hover:scale-105 transition-all flex flex-col justify-between cursor-pointer"
+                            onClick={() => setPopupData(cert)}
+                        >
+                            {cert.icon}
+                            <div>
+                                <h3 className="text-xl font-semibold text-yellow-300">{cert.title}</h3>
+                                <p className="text-gray-400">Issued by: {cert.issuer}</p>
+                                <p className="text-gray-500">{cert.description}</p>
+                            </div>
+
+                            {/* View Certificate Button */}
+                            <a
+                                href={cert.pdf}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mt-4 bg-yellow-500 text-black text-center font-bold py-2 px-4 rounded-lg transition hover:bg-yellow-400"
+                            >
+                                View Certificate
+                            </a>
+                        </motion.div>
+                    ))}
+
+
+                {selectedTab === "Courses" &&
+                    courses.map((course, index) => (
+                        <motion.div
+                            key={index}
+                            className="animate-on-scroll w-[280px] h-[400px] bg-gray-900 rounded-3xl p-6 border-4 border-black shadow-lg hover:scale-105 transition-all flex flex-col justify-between cursor-pointer"
+                            onClick={() => setPopupData(course)}
+                        >
+                            {course.icon}
+                            <div>
+                                <h3 className="text-xl font-semibold text-yellow-300">{course.title}</h3>
+                                <p className="text-gray-400">Platform: {course.platform}</p>
+                                <p className="text-gray-500">{course.description}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+            </div>
+
+            <AnimatePresence>
+                {popupData && (
+                    <motion.div
+                        className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setPopupData(null)}
+                    >
+                        <motion.div
+                            className="bg-gray-900 text-white p-6 rounded-lg shadow-lg border-4 border-black w-96"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <h2 className="text-2xl font-bold mb-3 text-yellow-400">{popupData.title}</h2>
+                            <p className="text-gray-300">{popupData.description}</p>
+                            <button className="mt-4 bg-red-500 px-4 py-2 rounded-md" onClick={() => setPopupData(null)}>Close</button>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

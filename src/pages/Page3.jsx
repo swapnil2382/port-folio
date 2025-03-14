@@ -1,46 +1,88 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 import useGsapAnimations from "../components/useGsapAnimations";
-import '../styles/Page1.css';
-import SkillLayout from "../components/SkillLayout";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const techStack = [
+  { name: "Node.js", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "Java", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+  { name: "HTML5", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS3", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "JavaScript", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "Figma", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+  { name: "Bootstrap", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
+  { name: "MongoDB", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "Git", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "GitHub", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", white: true },
+  { name: "Express", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg", white: true },
+  { name: "React", image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", color: "blue" },
+];
+
+const chunkArray = (array, size) => {
+  return array.reduce((acc, _, i) => {
+    if (i % size === 0) acc.push(array.slice(i, i + size));
+    return acc;
+  }, []);
+};
 
 const Page3 = () => {
-  // Apply GSAP animations to elements with the 'animate-on-scroll' class
-  useGsapAnimations(".fade-in-slide-left", "fadeInSlideLeft");
-  useGsapAnimations(".animate-on-scroll");
-  
+  const rowsRef = useRef([]);
 
-  // Skill logos data (example, update with your own logo images)
-  const skillLogos = [
-    { name: "MongoDB", image: "https://seeklogo.com/images/M/mongodb-logo-D13D67C930-seeklogo.com.png" },
-    { name: "React", image: "https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Fe0nl7ziy1la7bpwj7rsp.png" },
-    { name: "Node.js", image: "https://ih1.redbubble.net/image.404031065.2191/st,small,507x507-pad,600x600,f8f8f8.u1.jpg" },
-    { name: "Java", image: "https://www.cdnlogo.com/logos/j/86/java.svg" },
-    { name: "Python", image: "https://www.shutterstock.com/image-vector/vector-illustration-icon-python-programming-260nw-1397241389.jpg" },
-  ];
+  useEffect(() => {
+    rowsRef.current.forEach((row, index) => {
+      if (row) {
+        gsap.set(row, { visibility: "hidden", opacity: 0, scale: 0.5 }); 
+
+        gsap.to(row, {
+          opacity: 1,
+          scale: 1,
+          visibility: "visible",
+          duration: 0.6,
+          ease: "power4.out",
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: row,
+            start: "top 85%",
+            end: "top 50%",
+            toggleActions: "play none none reset",
+          },
+        });
+      }
+    });
+  }, []);
+
+  const rows = chunkArray(techStack, 4);
+  useGsapAnimations();
 
   return (
-    <div className="flex flex-col justify-start relative z-10 bg-white overflow-hidden h-screen">
-      <div className="bg-[url('https://img.freepik.com/free-vector/realistic-polygonal-background_52683-59998.jpg?semt=ais_hybrid')] bg-cover bg-center m-5 h1-screen rounded-3xl">
-        <h1 id="personalh12" className="bounce-text text-[5vw] text-center font-extrabold italic pt-0 pb-0 text-white bounce-text animate-on-scroll pt-7">
-          SKILLS
-        </h1>
-        <div className="flex-grow flex justify-center items-center">
-          <div className="skill-layout-container">
-            {/* New div for skill logos */}
-            <div className="skill-logos-container fade-in-slide-left">
-              {skillLogos.map((logo, index) => (
-                <div
-                  key={index}
-                  className="skill-logo"
-                  style={{ backgroundImage: `url(${logo.image})` }}
-                ></div>
-              ))}
-            </div>
+    <div id="page3" className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-900 text-white px-4">
+      <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-500 text-center gsap-animate">
+        &lt;/ Skills &gt;
+      </h1>
 
-            {/* Skill Layout (90% width) */}
-            <SkillLayout />
+      <div className="w-full sm:w-full md:w-4/5 lg:w-3/5 flex flex-col items-center mt-10 pb-10">
+        {rows.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            ref={(el) => (rowsRef.current[rowIndex] = el)}
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 w-full mb-9"
+          >
+            {row.map((tech, index) => (
+              <div
+                key={index}
+                className="p-6 bg-[#29282880] border border-gray-700 rounded-[30%] shadow-lg transition-transform transform hover:scale-110 flex justify-center items-center w-full aspect-square"
+              >
+                <img
+                  src={tech.image}
+                  alt={tech.name}
+                  className={`w-16 md:w-20 lg:w-24 h-16 md:h-20 lg:h-24 ${tech.white ? "filter invert" : ""}`}
+                />
+              </div>
+            ))}
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
