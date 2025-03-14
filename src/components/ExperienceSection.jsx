@@ -49,7 +49,7 @@ const ExperienceSection = () => {
             title: "Data Analysis Certification",
             issuer: "Accenture",
             description: "Data cleaning, modeling, and visualization.",
-            pdf: AccentureCert,  // Updated to 'pdf' instead of 'image'
+            pdf: AccentureCert,
             icon: <FaDatabase size={50} className="text-yellow-400" />
         },
         {
@@ -72,18 +72,21 @@ const ExperienceSection = () => {
             description: "Covered AI fundamentals & ethical AI.",
             pdf: LinkdinCert,
             icon: <FaReact size={50} className="text-purple-500" />
-        }    ];
+        }
+    ];
 
     const courses = [
         { title: "Full Stack Web Development", platform: "Udemy", description: "React, Node.js, MongoDB, and Express.", icon: <FaReact size={50} className="text-blue-500" /> },
         { title: "Advanced Java Programming", platform: "Coursera", description: "OOP, multithreading, and data structures.", icon: <FaJava size={50} className="text-orange-600" /> },
         { title: "Cloud Computing with AWS", platform: "AWS Academy", description: "AWS services and cloud architectures.", icon: <FaAws size={50} className="text-yellow-500" /> },
     ];
+
     useGsapAnimations();
+
     return (
         <div ref={sectionRef} className="min-h-screen text-white py-12 px-6 sm:px-12">
             {/* Tab Buttons */}
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 gsap-animate">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8 gsap-animate-desktop">
                 {["Certificates", "Experience", "Courses"].map((tab) => (
                     <motion.button
                         key={tab}
@@ -97,7 +100,8 @@ const ExperienceSection = () => {
                 ))}
             </div>
 
-            <div className="flex justify-center flex-wrap gap-6 gsap-animate">
+            {/* Cards Section */}
+            <div className="flex justify-center flex-wrap gap-6 gsap-animate-desktop">
                 {selectedTab === "Experience" &&
                     experiences.map((exp, index) => (
                         <motion.div
@@ -141,7 +145,6 @@ const ExperienceSection = () => {
                         </motion.div>
                     ))}
 
-
                 {selectedTab === "Courses" &&
                     courses.map((course, index) => (
                         <motion.div
@@ -159,6 +162,7 @@ const ExperienceSection = () => {
                     ))}
             </div>
 
+            {/* Popup Modal */}
             <AnimatePresence>
                 {popupData && (
                     <motion.div
@@ -169,7 +173,7 @@ const ExperienceSection = () => {
                         onClick={() => setPopupData(null)}
                     >
                         <motion.div
-                            className="bg-gray-900 text-white p-6 rounded-lg shadow-lg border-4 border-black w-96"
+                            className="bg-gray-900 text-white p-6 rounded-lg shadow-lg border-4 border-black w-96 max-h-[80vh] overflow-auto"
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.8, opacity: 0 }}
@@ -177,7 +181,9 @@ const ExperienceSection = () => {
                         >
                             <h2 className="text-2xl font-bold mb-3 text-yellow-400">{popupData.title}</h2>
                             <p className="text-gray-300">{popupData.description}</p>
-                            <button className="mt-4 bg-red-500 px-4 py-2 rounded-md" onClick={() => setPopupData(null)}>Close</button>
+                            <button className="mt-4 bg-red-500 px-4 py-2 rounded-md" onClick={() => setPopupData(null)}>
+                                Close
+                            </button>
                         </motion.div>
                     </motion.div>
                 )}

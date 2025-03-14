@@ -11,7 +11,7 @@ const Page2 = () => {
     <div id="page2" className=" relative flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-16 bg-gradient-to-t from-black to-gray-900 text-white min-h-screen md:h-screen">
 
       <motion.div
-  className="w-full md:w-1/3 flex justify-center md:order-2 mb-6 md:mb-0 relative gsap-animate"
+  className="w-full md:w-1/3 flex justify-center md:order-2 mb-6 md:mb-0 relative gsap-animate-desktop"
   initial={{ opacity: 0, x: 50 }}
   animate={{ opacity: 1, x: 0 }}
   transition={{ duration: 1 }}
@@ -31,7 +31,7 @@ const Page2 = () => {
 </motion.div>
 
       <motion.div
-        className="w-full md:w-2/3 space-y-6 gsap-animate"
+        className="w-full md:w-2/3 space-y-6 gsap-animate-desktop"
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
@@ -62,7 +62,7 @@ const Page2 = () => {
         </h2>
         <p className="text-gray-300">
           <b className="text-pink-400">React.js</b>, Next.js, Node.js, Express.js, MongoDB, Tailwind CSS,
-          Framer Motion, GSAP, Firebase.
+          Framer Motion, GSAP.
           <br />
           I specialize in{" "}
           <span className="text-yellow-400">building complex UIs</span>,{" "}

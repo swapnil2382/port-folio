@@ -8,47 +8,24 @@ const useGsapAnimations = () => {
   useEffect(() => {
     const elements = document.querySelectorAll(".gsap-animate");
 
-    // Loop over each element to apply the animation
-    elements.forEach((el) => {
-      // Set initial states for visibility and opacity, without affecting position
-      gsap.set(el, { visibility: "hidden", opacity: 0 });
-
-      // GSAP animation with ScrollTrigger
-      gsap.to(el, {
-        opacity: 1,  // Only animate opacity for fade-in effect
-        visibility: "visible",  // Make sure the element is visible
-        duration: 0.6,
-        ease: "power4.out",
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",  // Trigger the animation when the element is 85% into view
-          end: "top 50%",    // End the animation when the element is 50% into view
-          toggleActions: "play none none reset",  // Play animation when the element enters the viewport
-          markers: false,   // You can enable markers for debugging
-          scrub: false,
-          pin: false,        // Ensure content doesn't get pinned while animating
-        },
-      });
-    });
-
-    // Add event listener for window resize to handle mobile and desktop views
+    // Handle window resize for mobile-specific animations
     const mobileQuery = window.matchMedia("(max-width: 768px)");
 
-    const updateMobileAnimations = () => {
-      elements.forEach((el) => {
-        gsap.set(el, { visibility: "hidden", opacity: 0 });
+    const updateDesktopAnimations = () => {
+      const desktopElements = document.querySelectorAll(".gsap-animate-desktop");
+
+      desktopElements.forEach((el) => {
+        gsap.set(el, { opacity: 0 });
 
         gsap.to(el, {
-          opacity: 1,   // Only animate opacity for smooth reveal
-          visibility: "visible",
+          opacity: 1,
           duration: 0.6,
           ease: "power4.out",
           stagger: 0.15,
           scrollTrigger: {
             trigger: el,
-            start: "top 80%",  // Start earlier on mobile
-            end: "top 40%",    // End animation sooner for mobile
+            start: "top 85%",
+            end: "top 50%",
             toggleActions: "play none none reset",
             markers: false,
             scrub: false,
@@ -58,18 +35,46 @@ const useGsapAnimations = () => {
       });
     };
 
-    // If the screen width is <= 768px, apply mobile-specific animations
+    const updateMobileAnimations = () => {
+      const mobileElements = document.querySelectorAll(".gsap-animate-mobile");
+
+      mobileElements.forEach((el) => {
+        gsap.set(el, { opacity: 0 });
+
+        gsap.to(el, {
+          opacity: 1,
+          duration: 0.6,
+          ease: "power4.out",
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+            end: "top 50%",
+            toggleActions: "play none none reset",
+            markers: false,
+            scrub: false,
+            pin: false,
+          },
+        });
+      });
+    };
+
+    // Apply desktop animations if screen size > 768px
+    if (!mobileQuery.matches) {
+      updateDesktopAnimations();
+    }
+
+    // Apply mobile-specific animations if screen size <= 768px
     if (mobileQuery.matches) {
       updateMobileAnimations();
     }
 
-    // Listen for changes in screen size
+    // Listen for changes in screen size and update animations accordingly
     mobileQuery.addListener((e) => {
       if (e.matches) {
         updateMobileAnimations(); // Apply mobile animation
       } else {
-        // Reset to default animation behavior for larger screens
-        updateMobileAnimations(); // This can be customized further for larger screens
+        updateDesktopAnimations(); // Apply desktop animation
       }
     });
 

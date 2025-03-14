@@ -61,7 +61,7 @@ const projects = [
 
 const ProjectCard = ({ project }) => {
   return (
-    <div id="page4" className="w-full lg:w-[900px] bg-gray-900 text-yellow-500 rounded-xl overflow-hidden shadow-lg transition-all transform hover:scale-105 border border-gray-600 flex flex-col lg:flex-row p-6 mb-6 gsap-animate">
+    <div id="page4" className="w-full lg:w-[900px] bg-gray-900 text-yellow-500 rounded-xl overflow-hidden shadow-lg transition-all transform hover:scale-105 border border-gray-600 flex flex-col lg:flex-row p-6 mb-6 gsap-animate-desktop">
 
       <div className="lg:w-[45%] w-full flex justify-center items-center">
         <img 

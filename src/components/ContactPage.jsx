@@ -8,7 +8,7 @@ const ContactPage = () => {
     <div className="flex flex-col w-full max-w-3xl items-center text-center mt-10 mb-10">
       
 
-      <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-lime-500 text-center gsap-animate">
+      <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-lime-500 text-center gsap-animate-desktop">
   &lt;/ Contact &gt;
 </h1>
 
